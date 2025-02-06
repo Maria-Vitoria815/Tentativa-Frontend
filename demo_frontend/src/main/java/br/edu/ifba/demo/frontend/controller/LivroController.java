@@ -23,7 +23,7 @@ public class LivroController {
     // Listar todos os livros
     @GetMapping("/listall")
     public ModelAndView listarLivros() {
-        ModelAndView model = new ModelAndView("livro"); // Nome do template correto
+        ModelAndView model = new ModelAndView("index"); // Nome do template correto
         model.addObject("listaLivro", livroService.listAll());
         return model;
     }
