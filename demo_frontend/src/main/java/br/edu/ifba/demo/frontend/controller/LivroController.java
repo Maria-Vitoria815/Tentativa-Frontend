@@ -42,7 +42,7 @@ public class LivroController {
     @GetMapping("/deletelivro/{id}")
     public String deletarLivro(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         livroService.delete(id);
-        redirectAttributes.addFlashAttribute("deletelivro", "Livro excluído com sucesso!");
+        redirectAttributes.addFlashAttribute("deletelivro", "Livro deletado com sucesso!");
         return "redirect:/livro/listall";
     }
 
@@ -58,7 +58,7 @@ public class LivroController {
     @PostMapping("/add")
     public String adicionarLivro(@ModelAttribute LivroDTO livro, RedirectAttributes redirectAttributes) {
         livroService.addLivro(livro);
-        redirectAttributes.addFlashAttribute("mensagem", "Livro salvo com sucesso!");
+        redirectAttributes.addFlashAttribute("mensagem", "Livro cadastrado com sucesso!");
         return "redirect:/livro/listall";
     }
 
