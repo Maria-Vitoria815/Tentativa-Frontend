@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifba.demo.frontend.dto.LivroDTO;
+import br.edu.ifba.demo.frontend.service.GeneroService;
 import br.edu.ifba.demo.frontend.service.LivroService;
 
 @Controller
@@ -19,16 +20,16 @@ public class LivroController {
 
     @Autowired
     private LivroService livroService;
+    @Autowired
+    private GeneroService generoService; // Listar todos os livros
 
-    // Listar todos os livros
     @GetMapping("/listall")
     public ModelAndView listarLivros() {
         ModelAndView model = new ModelAndView("index"); // Nome do template correto
         model.addObject("listaLivro", livroService.listAll());
         return model;
-    }
+    } // Buscar livro por ID
 
-    // Buscar livro por ID
     @GetMapping("/view/{id}")
     public ModelAndView buscarLivroPorId(@PathVariable("id") Long id) {
         LivroDTO livro = livroService.getById(id);
@@ -36,52 +37,45 @@ public class LivroController {
         model.addObject("livro", livro);
         model.addObject("view", true); // Correção para condicionar o modo de visualização
         return model;
-    }
+    } // Deletar livro e redirecionar para a lista de livros
 
-    // Deletar livro e redirecionar para a lista de livros
     @GetMapping("/deletelivro/{id}")
     public String deletarLivro(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         livroService.delete(id);
-        redirectAttributes.addFlashAttribute("deletelivro", "Livro deletado com sucesso!");
+        redirectAttributes.addFlashAttribute("deletelivro", "Livro excluído com sucesso!");
         return "redirect:/livro/listall";
-    }
+    } // Exibir formulário de cadastro
 
-    // Exibir formulário de cadastro
     @GetMapping("/novo")
     public ModelAndView exibirFormularioNovoLivro() {
         ModelAndView model = new ModelAndView("livro/form");
-        model.addObject("livro", new LivroDTO()); // Cria um objeto vazio para o formulário
+        model.addObject("livro", new LivroDTO());
+        model.addObject("generos", generoService.listAllGeneros()); // Passa a lista de gêneros
         return model;
     }
 
-    // Adicionar um novo livro
-    @PostMapping("/add")
-    public String adicionarLivro(@ModelAttribute LivroDTO livro, RedirectAttributes redirectAttributes) {
-        livroService.addLivro(livro);
-        redirectAttributes.addFlashAttribute("mensagem", "Livro cadastrado com sucesso!");
-        return "redirect:/livro/listall";
-    }
 
     @GetMapping("/editar/{id}")
     public ModelAndView exibirFormularioEditLivro(@PathVariable Long id) {
         ModelAndView model = new ModelAndView("livro/form");
-
         LivroDTO livro = livroService.getById(id);
         if (livro == null) {
             throw new RuntimeException("Livro não encontrado!");
         }
-
         model.addObject("livro", livro);
+        model.addObject("generos", generoService.listAllGeneros()); // Passa a lista de gêneros
         return model;
     }
 
-
-    @PostMapping("/editar")
-    public String editarLivro(@ModelAttribute LivroDTO livro, RedirectAttributes redirectAttributes) {
-        livroService.addLivro(livro);
-        redirectAttributes.addFlashAttribute("mensagem", "Livro editado com sucesso!");
-        return "redirect:/livro/listall";
+    @PostMapping("/salvar")
+    public String salvarLivro(@ModelAttribute("livro") LivroDTO livroDTO, RedirectAttributes redirectAttributes) {
+        boolean sucesso = livroService.salvarOuAtualizar(livroDTO);
+        if (sucesso) {
+            redirectAttributes.addFlashAttribute("mensagem", "Gênero salvo com sucesso!");
+        } else {
+            redirectAttributes.addFlashAttribute("erro", "Erro ao salvar gênero!");
+        }
+        return "redirect:/livro/novo";  // Confirme se esta URL está correta
     }
-
 
 }
