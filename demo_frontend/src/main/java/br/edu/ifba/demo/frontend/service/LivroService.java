@@ -3,6 +3,7 @@ package br.edu.ifba.demo.frontend.service;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -28,27 +29,30 @@ public class LivroService {
 
     public LivroDTO getById(Long idLivro) {
         Mono<LivroDTO> monoObj = this.webClient
-                .get()
-                .uri("/buscarporid/{id}", idLivro) // Corrigido a URI
-                .retrieve()
-                .bodyToMono(LivroDTO.class);
-
-        return monoObj.block(); // Bloqueia para obter o resultado síncrono
+        .get() 
+        .uri("/buscarporid/{id}", idLivro)
+        .retrieve() 
+        .bodyToMono(LivroDTO.class);
+        return monoObj.block();
+        
     }
 
     public void delete(Long id) {
+        
         restTemplate.delete(BASE_URL + "/deletelivro/{id}", id);
+        
     }
 
-    public void addLivro(LivroDTO livroDTO) {
-        this.webClient.post()
-        .uri("http://localhost:8081/livro/add")  // Adicionar o domínio completo
-        .bodyValue(livroDTO)
-        .retrieve()
-        .bodyToMono(Void.class)
-        .block();
+    public boolean salvarOuAtualizar(LivroDTO livroDTO) {
+        LivroDTO salvar = this.webClient.post()
+            .uri("/salvar")
+            .contentType(MediaType.APPLICATION_JSON)
+            .bodyValue(livroDTO)
+            .retrieve()
+            .bodyToMono(LivroDTO.class)
+            .block();
 
+        return salvar !=null;
     }
-    
     
 }
