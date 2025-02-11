@@ -10,7 +10,7 @@
 <body>
     <div class="container mt-4">
 
-        <h1 th:text="${view} ? 'Visualizar' : (${livro.id_livro} != null ? 'Editar' : 'Novo Livro')"></h1>
+        <h1 th:text="${view} ? 'Visualizar' : (${livro.id_livro} != null ? 'Editar' : 'Novo')"></h1>
 
         <form th:action="@{/livro/salvar}" th:object="${livro}" method="post" class="row g-3"> <input type="hidden"
                 th:field="*{id_livro}" />

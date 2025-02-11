@@ -1,86 +1,97 @@
-/* Estilização da página */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f3f3f3;
-    color: #333;
     margin: 0;
-  }
-  
-  .header {
-    background-color: #007bff;
-    padding: 20px;
-    text-align: center;
-    color: white;
-  }
-  
-  .container {
+    font-family: Arial, sans-serif;
+    background: url('../img/2126757.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #6eafe9;
+}
+
+/* container pra organizar os outros containers dentro (fundo todo transparente) */
+.container {
     max-width: 900px;
     margin: 40px auto;
-    background: white;
     padding: 20px;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8); /* Fundo semi-transparente */
+    border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .btn-cadastrar {
-    background-color: #0d6efd;
+}
+
+.header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(74, 144, 226, 0.6); /* Azul semi-transparente */
+    border-radius: 10px;
+    color: white;
+}
+
+.btn-cadastrar {
+    background-color: rgba(74, 144, 226, 0.7); /* Azul semi-transparente */
     color: white;
     padding: 10px 20px;
     text-decoration: none;
     display: inline-block;
     border-radius: 5px;
     margin-bottom: 20px;
-  }
-  
-  .btn-cadastrar:hover {
-    background-color: #0b5ed7;
-  }
-  
-  .table {
+    border: none;
+    cursor: pointer;
+}
+
+.btn-cadastrar:hover {
+    background-color: rgba(74, 144, 226, 0.9); /* Azul mais opaco ao passar o mouse */
+}
+
+.table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #f8f9fa;
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo semi-transparente */
     margin-top: 10px;
-  }
-  
-  th, td {
+}
+
+th, td {
     text-align: center;
     padding: 12px;
-    border: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #e9ecef;
+    border: 1px solid #ccc;
+}
+
+th {
+    background-color: rgba(74, 144, 226, 0.6); /* Azul semi-transparente */
+    color: white;
     font-weight: bold;
-  }
-  
-  .acoes-btn {
+}
+
+.acoes-btn {
     display: flex;
     justify-content: center;
     gap: 10px;
-  }
-  
-  .btn-visualizar {
-    background-color: #0d6efd;
+}
+
+.btn-visualizar {
+    background-color: rgba(74, 144, 226, 0.7); /* Azul semi-transparente */
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
-  }
-  
-  .btn-editar {
-    background-color: #ffc107;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-editar {
+    background-color: #ffc107; /* Amarelo */
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
-  }
-  
-  .btn-deletar {
-    background-color: #dc3545;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-deletar {
+    background-color: #dc3545; /* Vermelho */
     color: white;
     padding: 5px 10px;
     border-radius: 5px;
-  }
-  
-  button:hover {
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
     opacity: 0.9;
-  }
+}
