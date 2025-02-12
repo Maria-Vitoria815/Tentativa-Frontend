@@ -2,6 +2,7 @@ package br.edu.ifba.demo.frontend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,14 @@ public class GeneroController {
         return "redirect:/livro/novo";  // Confirme se esta URL está correta
     }
 
+    @GetMapping("/editar/{id}")
+    public String editarGenero(@PathVariable Long id, Model model) {
+        GeneroDTO generoDTO = generoService.findById(id); // Busca o gênero pelo ID
+        model.addAttribute("generoEditar", generoDTO); // Adiciona o gênero ao modelo
+        model.addAttribute("generos", generoService.listAllGeneros()); // Mantém a lista de gêneros
+        return "livro/novo"; // Retorna para a mesma página de criação de livro
+    }
+
 
     @GetMapping("/deletar/{id}")
     public String deletarGenero(@PathVariable Long id, RedirectAttributes redirectAttributes) {
@@ -48,6 +57,8 @@ public class GeneroController {
         }
         return "redirect:/livro/novo";  // Redireciona para o formulário de novo livro
     }
+
+    
 
 
 }

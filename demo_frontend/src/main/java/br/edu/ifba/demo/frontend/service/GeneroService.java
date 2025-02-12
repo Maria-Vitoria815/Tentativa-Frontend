@@ -54,5 +54,13 @@ public class GeneroService {
                 .bodyToMono(Void.class)
                 .block();
     }
+
+    public GeneroDTO findById(Long id) {
+        return this.webClient.get()
+                .uri("/buscarporid/{id}", id)
+                .retrieve()
+                .bodyToMono(GeneroDTO.class)
+                .block();
+    }
     
 }
